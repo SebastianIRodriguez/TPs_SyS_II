@@ -1,18 +1,14 @@
-%% Varaibles %%
+%% Variables %%
 J = 15;
 b = 1.1;
 L = 2.886e-3;
 R = 50.296e-3;
 K = 6.7628;
 
-%% Señales de entrada %%
-U = frest.createStep('StepTime',0,'StepSize',440,'FinalTime',1);
-T = frest.createStep('StepTime',0,'StepSize',0,'FinalTime',1);
-
 %% Funciones transferencia %%
 s = tf([1,0],1);
 G = 157.288/(s^2+17.62*s+1065);
-C = 5*(s+16)/(16*s);
+Cont = 5*(s+16)/(s*16);
 
 [A,B,C,D] = linmod('Diagrama_motor');
 
@@ -23,21 +19,32 @@ C = 5*(s+16)/(16*s);
 [numt,dent] = ss2tf(A,B,C,D,2);
 
 %% Atovalores de A y polos (son iguales)
-lambda = eig(A);
+[autovect,lambda] = eig(A);
 polesU = pole(tf(numu,denu));
 polesT = pole(tf(numt,dent));
 
 step(tf(440*numu,denu));
 
-figure
-plot(i);
+%% Plot de w/i
+%figure
+plot(w.data,i.data,'r'); %g,b
 grid on;
-xlabel('Tiempo [s]');
-ylabel('Corriente');
+xlabel('w [rad/s]');
+ylabel('i [A]');
+hold on
 
-hold;
+%% retrato 3D
+ci = [65;10];
+retrato3d(A,ci,1,10);
 
-plot(w * 100);
-grid on;
-xlabel('Tiempo [s]');
-ylabel('Velocidad angular');
+%% Diagonalización de A
+U=[real(autovect(:,1)), imag(autovect(:,1))];
+At = inv(U)*A*U;
+cit = inv(U) * ci;
+retrato3d(At,cit,1,10);
+
+%% Realimentación
+realimentado=feedback(Cont * G, 1);
+denr = [16; 281.9 ; 1.783e04 ; 1.258e04];
+polosRealimentados = roots(denr);
+
