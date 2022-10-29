@@ -40,11 +40,13 @@ Glc2 = feedback(Gla,1);
 
 %%
 
-bode(Gp*Gs);
+%bode(Gp*Gs);
 % Con este se nota que engloba al -1 en el valor antes obtenido de K
 %nyquist(6.0971*Gp*Gs);
-grid on;
+%grid on;
 
+% Margenes de fase y ganancia
+[Gm,Pm,Wgm,Wpm] = margin(Gp*Gs);
 
 
 

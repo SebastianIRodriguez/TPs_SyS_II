@@ -45,7 +45,8 @@ bode(Gp*Gs);
 %nyquist(6.0971*Gp*Gs);
 grid on;
 
-[Gm,Pm,Wgm,Wpm] = margin(Gp*Gs)
+% Margenes de fase y ganancia
+[Gm,Pm,Wgm,Wpm] = margin(Gp*Gs);
 
 
 
