@@ -27,7 +27,7 @@ rlocus(Gla);
 K1 = 0.0304;
 C1 = C*K1;
 Glc1 = feedback(C1*Gp,Gs);
-%step(Glc1); 
+step(Glc1); 
 
 %% Sistema estable, dos polos complejos dominantes:
 %Pcruce = (-110.05 + 0i) (-0.35 +- 0.3315i)(-9.25 + 0.0i)
@@ -36,7 +36,7 @@ Glc1 = feedback(C1*Gp,Gs);
 K2 =  2.7950;
 C2 = C*K2;
 Glc2 = feedback(C2*Gp,Gs);
-%step(Glc2);
+step(Glc2);
 
 %% Sistema estable, tre polos dominantes con parte real similar:
 %Pcruce = (-101.69 + 0i) (-0.06.19 +- 0.1504i) (-0.05.92 + 0i)
@@ -45,14 +45,17 @@ Glc2 = feedback(C2*Gp,Gs);
 K3 = 0.3984;
 C3 = C*K3;
 Glc3 = feedback(C3*Gp,Gs);
-%step(Glc3);
+step(Glc3);
 
 %% Diagrama de BODE para Kp = 1
-%bode(Gla);
+ltiview(Glc,Glc1,Glc3);
+%legend('Gla','K1*Gla','K2*Gla','K3*Gla');
+grid on;
 
 %% Diagrama de Nyquist para Kp = 1
-% Se ve bastante feito, pero se entiende... creo... 
-%nyquist(Gla);
+% Se ve bastante feito
+nyquist(Gla);
+grid on;
 
 %%  Margenes de fase y ganancia
 % Para k = 1: Gm = 3.0126; Pm = 26.1760; Wgm = 34.2181; Wpm = 19.7852
@@ -62,11 +65,12 @@ Glc3 = feedback(C3*Gp,Gs);
 [Gm,Pm,Wgm,Wpm] = margin(Gla);
 
 %% Diagrama de BODE para Kp = K3
-%bode(K3*Gla);
+bode(Gla,K3*Gla);
+grid on;
 
 %% Diagrama de Nyquist para Kp = K3
 % Se ve bastante feito, pero se entiende... creo... 
-%nyquist(K3*Gla);
+nyquist(Gla,K3*Gla);
 
 %%  Margenes de fase y ganancia
 % Para k = k3: Gm = 7.5618; Pm = 65.7117; Wgm = 34.2181; Wpm = 10.0312
@@ -74,9 +78,9 @@ Glc3 = feedback(C3*Gp,Gs);
 % es menor a 1, así que los márgenes aumentaron.
 [Gm3,Pm3,Wgm3,Wpm3] = margin(K3*Gla);
 
-% Puede que un problema sea la tendencia a oscilar del sistema.
-% Al aumentar K, el sistema se vuelve más y más oscilante, o bien
-% se inestabiliza para grandes vcalores de K
-% Con un control derivativo, se resuelve todo esto y más!
-% Observar el lugar de las raíces de C = Kp*(1+1/(Tr*s)+s);
+% se inestabiliza para grandes valores de K
+% Con un control derivativo, se resuelve
+% Observar el lugar de las raíces de Cd = Kp*(1+1/(Tr*s)+s);
 
+Cd = Kp*(1+1/(Tr*s)+s);
+rlocus(Cd*Gp*Gs);

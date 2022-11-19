@@ -3,7 +3,7 @@ gp = tf(400, [1 20 200]);
 %% 2.2 
 % Grafique la respuesta al escalon utilizando Matlab 
 % y verifique que se cumpla lo calculado en el punto 2.1.
-ltiview(gp)
+ltiview(gp);
 
 %% 2.3
 % Seleccione un valor de kp de modo obtener una ganancia estatica unitaria
@@ -41,7 +41,7 @@ gp_max = tf(400, [1 20 a0_max]);
 
 ltiview((1/kp)*gp_min, (1/kp)*gp, (1/kp)*gp_max)
 
-% Se podria mejorar la robustez utilizando un control derivativo,
+% Se podria mejorar la robustez utilizando un control integral,
 % de forma de fijar la ganancia en 1.
 
 

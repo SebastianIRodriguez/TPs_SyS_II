@@ -42,21 +42,24 @@ ltiview(glc, 'b', glc_min, 'r', glc_max, 'g')
 % donde se ubican los polos de GLC (s) para el valor de K calculado.
 
 rlocus(gp)
-[k, poles] = rlocfind(gp);
+hold on
+[kbuscada, poles] = rlocfind(gp);
 
 %% 3.6
 % Grafique los diagramas de Bode y Nyquist de Gp(s).
 % Evalue los margenes de fase y ganancia.
 
-bode(gp);
+ltiview(gp);
 grid;
 
 %%
 nyquist(gp);
 
 % OBSERVACIONES
-% M_fase = 180 - 114 = 66°
+% M_fase = 68.53
 % M_ganancia = inf
+
+[Gm,Pm,Wgm,Wpm] = margin(gp);
 
 %% 3.7
 % Grafique los diagramas de Bode y Nyquist de GLA(s) = K * Gp(s) 
@@ -64,9 +67,10 @@ nyquist(gp);
 % Evalue los margenes de fase y ganancia del lazo de la Figura 2.
 % Superponga los diagramas con los obtenidos en el item anterior y compare.
 
-bode(gp, k*gp);
+ltiview(gp, k*gp);
 grid;
-%Para este valor de k=9.5, M_fase = 180° - 160° = 20°
+%Para este valor de k=9.5, M_fase = 180° - 160° = 20° // Real 18.91
+[Gm2,Pm2,Wgm2,Wpm2] = margin(k*gp);
 
 %%
 nyquist(gp, k*gp);
