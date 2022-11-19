@@ -1,0 +1,50 @@
+%% 3.2.2. Muestreo inteligente 2. Filtro de Chebyshev Tipo 1.
+clc
+%% a.
+% Para los mismos parámetros de atenuaciones y selectividades anteriores,
+% diseñar filtros de Chebyshev.
+% Funciones útiles: [n,?n]=cheb1ord(?p, ?a, ?max, ?min,'s')
+% [num,den]=cheby1(n,?max,?p,'low','s')
+k = [0.1, 0.4 , 0.6, 0.9];
+
+fs = 11025;
+wa = 1 / 2;
+at_max = .1;
+at_min = 20;
+
+%% Para k = 0.1
+wp1 = ki * wa;
+[n1,wn1] = cheb1ord(wp, wa, at_max, at_min,'s');
+[num1,den1] = cheby1(n1, at_max, wp1, 'low', 's');
+[H1,w1]=freqs(num,den);
+plot(w1 * fs / 2, abs(H1)), grid on, legend('k=0.1')
+
+%% Para k = 0.1
+wp1 = ki * wa;
+[n1,wn1] = cheb1ord(wp, wa, at_max, at_min,'s');
+[num1,den1] = cheby1(n1, at_max, wp1, 'low', 's');
+[H1,w1]=freqs(num,den);
+plot(w1 * fs / 2, abs(H1)), grid on, legend('k=0.1')
+
+%% Para k = 0.1
+wp1 = ki * wa;
+[n1,wn1] = cheb1ord(wp, wa, at_max, at_min,'s');
+[num1,den1] = cheby1(n1, at_max, wp1, 'low', 's');
+[H1,w1]=freqs(num,den);
+plot(w1 * fs / 2, abs(H1)), grid on, legend('k=0.1'), hold 
+
+%% b.
+% Graficar amplitud y fase de la respuesta en frecuencia del filtro para 
+% las selectividades seleccionadas en una misma figura.
+% Comparar el orden y las características de los filtros obtenidos con lo
+% obtenido para los filtros de Butterworth para cada una de las selectividades.
+% ¿Qué ventajas y desventajas encuentra al comparar ambos filtros?
+
+%% c.
+% Simular el sistema de filtrado y muestreo correspondiente.
+% Escuchar el resultado y comparar con el filtro Butterworth seleccionado
+% anteriormente.
+
+%% d.
+% ¿Resulta adecuada la plantilla del filtro antialising diseñada en el punto
+% 3.2.a. para el diseño de filtros de Butterworth y Chebyshev? Justifique.
