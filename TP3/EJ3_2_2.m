@@ -28,16 +28,16 @@ wp3 = 0.9 * wa;
 [num3,den3] = cheby1(n3, at_max, wn3, 'low', 's');
 [H3,w3]=freqs(num3,den3);
 
-plot(w1, abs(H1), w2, abs(H2), w3, abs(H3))
-grid on
-legend('k=0.1', 'k=0.6', 'k=0.9')
-
 %% b.
 % Graficar amplitud y fase de la respuesta en frecuencia del filtro para 
 % las selectividades seleccionadas en una misma figura.
 % Comparar el orden y las características de los filtros obtenidos con lo
 % obtenido para los filtros de Butterworth para cada una de las selectividades.
 % ¿Qué ventajas y desventajas encuentra al comparar ambos filtros?
+
+plot(w1, abs(H1), w2, abs(H2), w3, abs(H3))
+grid on
+legend('k=0.1', 'k=0.6', 'k=0.9')
 
 %% c.
 % Simular el sistema de filtrado y muestreo correspondiente.
@@ -50,6 +50,9 @@ soundsc(sound1.Data)
 soundsc(sound2.Data)
 %% Señal 3
 soundsc(sound3.Data)
+
 %% d.
 % ¿Resulta adecuada la plantilla del filtro antialising diseñada en el punto
 % 3.2.a. para el diseño de filtros de Butterworth y Chebyshev? Justifique.
+
+
