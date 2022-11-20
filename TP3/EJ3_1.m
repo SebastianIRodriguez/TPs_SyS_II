@@ -125,10 +125,15 @@ alphamax = 1;
 
 %% Todos los sonidos
 soundsc(m.musica,m.fs,m.nbits) % Original
+%%
 soundsc(filtrada.signals.values,11025,16) % Muestreo bruto
+%%
 soundsc(filtrada1.signals.values,11025,16)
+%%
 soundsc(filtrada2.signals.values,11025,16)
+%%
 soundsc(filtrada3.signals.values,11025,16)
+%%
 soundsc(filtrada22.signals.values,11025,16)
 
 
